@@ -1,5 +1,8 @@
 import numpy as np
 import os
 
-data = open(os.path.dirname(os.path.abspath(__file__))+"/data/retail.dat.txt", "r")
-print(data)
+with open("data/retail.dat.txt", "r") as f:
+    data = f.readlines()
+data = [line.strip().split(" ") for line in data]
+
+
