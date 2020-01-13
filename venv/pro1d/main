@@ -1,8 +1,16 @@
 import numpy as np
-import os
+import pandas as pd
+from mlxtend.preprocessing import TransactionEncoder
+from mlxtend.frequent_patterns import apriori
 
 with open("data/retail.dat.txt", "r") as f:
     data = f.readlines()
 data = [line.strip().split(" ") for line in data]
+
+te = TransactionEncoder()
+te_ary = te.fit(data).transform(data)
+df = pd.DataFrame(te_ary, columns=te.columns_)
+
+print(df)
 
 
