@@ -7,5 +7,6 @@ setup(
    author='Tadeusz Pawlonka, Dmytro Shevchenko, Witold Kurpiewski',
    author_email='',
    packages=['pro1d'],
-   install_requires=['pandas', 'numpy']
+   install_requires=['pandas', 'mlxtend']
+   # pip install . (the dot is important)
 )

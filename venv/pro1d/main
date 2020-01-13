@@ -1,2 +1,5 @@
 import numpy as np
+import os
 
+data = open(os.path.dirname(os.path.abspath(__file__))+"/data/retail.dat.txt", "r")
+print(data)
