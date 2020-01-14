@@ -45,4 +45,13 @@ print(fpg)
 print("FP-growth execution time:", fpg_time, " seconds")
 print("")
 
+association_fpg_time_start = time.time()
+association_rules_fpg = association_rules(fpg, metric="confidence", min_threshold=0.05)
+association_fpg_time = time.time() - association_fpg_time_start
+
+print("FP-growth frequent itemsets: association rules found:")
+print(association_rules_fpg)
+print("FP-growth association rule mining execution time: ", association_fpg_time, " seconds")
+print("")
+
 # df.to_csv('readout.csv')
