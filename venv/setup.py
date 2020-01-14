@@ -8,5 +8,6 @@ setup(
    author_email='',
    packages=['pro1d'],
    install_requires=['pandas', 'mlxtend']
-   # pip install . (the dot is important)
+   # pip install . (the dot is important, to install globally)
+   # pip install -r < requirements.txt (to deploy the virtual environment for development)
 )
