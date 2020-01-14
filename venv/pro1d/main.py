@@ -3,7 +3,7 @@ import pandas as pd
 from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import apriori
 
-with open("data/retail.dat.txt", "r") as f:
+with open("../data/retail.dat.txt", "r") as f:
     data = f.readlines()
 data = [line.strip().split(" ") for line in data]
 

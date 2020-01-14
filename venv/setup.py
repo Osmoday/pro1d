@@ -15,4 +15,6 @@ setup(
    # activate.bat
    # cd ..
    # pip install -r requirements.txt (to deploy the virtual environment for development)
+   # in pycharm: go to settings -> Project Interpreter -> Add -> Virtual Environment -> put the path to your venv
+   # interpreter into "location", probably something like ~/PycharmProjects/pro1d/venv
 )
