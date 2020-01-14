@@ -14,5 +14,5 @@ setup(
    # cd venv/scripts
    # activate.bat
    # cd ..
-   # pip install -r < requirements.txt (to deploy the virtual environment for development)
+   # pip install -r requirements.txt (to deploy the virtual environment for development)
 )
