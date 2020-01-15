@@ -46,6 +46,7 @@ print("")
 fpg_time_start = time.time()
 fpg = fpgrowth(df, min_support=min_support_fpg, use_colnames=True)
 fpg_time = time.time() - fpg_time_start
+fpg['length'] = fpg['itemsets'].apply(lambda x: len(x))
 
 print("FP-growth")
 print(fpg)
