@@ -79,7 +79,7 @@ if inp.lower() == "y" or inp.lower() == "yes":
                                      "extension) ")
     association_rules_fpg.to_csv(filename_dpg_association + ".csv")
 
-inp = input("Save encoded dataframe as a .csv file? [Y/N] WARNING: Large file size measured in gigabytes, saving it "
+inp = input("Save encoded dataframe as a .csv file? [Y/N] WARNING: Large file size (~8.7 GB), saving it "
             "will take a very long time. ")
 if inp.lower() == "y" or inp.lower() == "yes":
     filename_dataframe = input("Please name the file for the dataframe (without file format extension)")
