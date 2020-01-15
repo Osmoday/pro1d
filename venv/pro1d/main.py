@@ -30,7 +30,7 @@ frequent_itemsets['length'] = frequent_itemsets['itemsets'].apply(lambda x: len(
 # frequent_itemsets = frequent_itemsets.drop()
 
 print("Apriori frequent itemsets")
-print(frequent_itemsets)
+print(frequent_itemsets.to_string())
 print("Apriori execution time: ", apriori_time, " seconds")
 print("")
 
@@ -49,7 +49,7 @@ fpg_time = time.time() - fpg_time_start
 fpg['length'] = fpg['itemsets'].apply(lambda x: len(x))
 
 print("FP-growth")
-print(fpg)
+print(fpg.to_string())
 print("FP-growth execution time:", fpg_time, " seconds")
 print("")
 
