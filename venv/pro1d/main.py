@@ -16,8 +16,15 @@ df = pd.DataFrame(te_ary, columns=te.columns_)
 print("Dataset loaded and encoded")
 print(df)
 
+min_support_apriori = float(input("Set apriori minimum support: "))
+min_support_fpg = float(input("Set fp-growth minimum support: "))
+metric_assoc = input("Specify the metric for judging association (support, confidence, lift, conviction, leverage): ")
+# http://rasbt.github.io/mlxtend/user_guide/frequent_patterns/association_rules/
+min_threshold_assoc = float(input("Set minimum threshold for creating association rules using chosen metric: "))
+
+
 apriori_time_start = time.time()
-frequent_itemsets = apriori(df, min_support=0.05, use_colnames=True)
+frequent_itemsets = apriori(df, min_support=min_support_apriori, use_colnames=True)
 apriori_time = time.time() - apriori_time_start
 frequent_itemsets['length'] = frequent_itemsets['itemsets'].apply(lambda x: len(x))
 # frequent_itemsets = frequent_itemsets.drop()
@@ -28,16 +35,16 @@ print("Apriori execution time: ", apriori_time, " seconds")
 print("")
 
 association_apriori_time_start = time.time()
-association_rules_apriori = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.05)
+association_rules_apriori = association_rules(frequent_itemsets, metric=metric_assoc, min_threshold=min_threshold_assoc)
 association_apriori_time = time.time() - association_apriori_time_start
 
 print("Apriori frequent itemsets: association rules found:")
-print(association_rules_apriori)
+print(association_rules_apriori.to_string())
 print("Apriori association rule mining execution time: ", association_apriori_time, " seconds")
 print("")
 
 fpg_time_start = time.time()
-fpg = fpgrowth(df, min_support=0.05, use_colnames=True)
+fpg = fpgrowth(df, min_support=min_support_fpg, use_colnames=True)
 fpg_time = time.time() - fpg_time_start
 
 print("FP-growth")
@@ -46,13 +53,14 @@ print("FP-growth execution time:", fpg_time, " seconds")
 print("")
 
 association_fpg_time_start = time.time()
-association_rules_fpg = association_rules(fpg, metric="confidence", min_threshold=0.05)
+association_rules_fpg = association_rules(fpg, metric=metric_assoc, min_threshold=min_threshold_assoc)
 association_fpg_time = time.time() - association_fpg_time_start
 
 print("FP-growth frequent itemsets: association rules found:")
-print(association_rules_fpg)
+print(association_rules_fpg.to_string())
 print("FP-growth association rule mining execution time: ", association_fpg_time, " seconds")
 print("")
+
 
 inp = input("Save results as .csv files? [Y/N]")
 if inp.lower() == "y" or inp.lower() == "yes":
