@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets, QtGui, QtCore
 import sys
+import apriori
 
 
 class Window(QtWidgets.QOpenGLWidget):

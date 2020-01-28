@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 import time
@@ -12,12 +13,20 @@ class _AprioriMlxtend:
         pass
 
     @staticmethod
-    def do_apriori(data, min_supp, metric, threshold):
+    def do_apriori(data, min_supp):
         t1 = time.time()
-        frequent_itemsets = apriori(df, min_support=min_supp, use_colnames=True)
+        frequent_itemsets = apriori(data, min_support=min_supp, use_colnames=True)
         t2 = time.time()
         frequent_itemsets['length'] = frequent_itemsets['itemsets'].apply(lambda x: len(x))
         return Result(t2-t1, frequent_itemsets)
+
+    @staticmethod
+    def find_assoc_rules(frequent_itemsets, metric, threshold):
+        t1 = time.time()
+        assoc = association_rules(frequent_itemsets, metric=metric,
+                                            min_threshold=threshold)
+        t2 = time.time()
+        return Result(t2-t1, assoc)
 
 
 class _AprioriInterpreted:
@@ -26,6 +35,10 @@ class _AprioriInterpreted:
 
     @staticmethod
     def do_apriori(data, min_supp, metric, threshold):
+        pass
+
+    @staticmethod
+    def find_assoc_rules(frequent_itemsets, metric, threshold):
         pass
 
 
@@ -37,10 +50,14 @@ class _AprioriNumpy:
     def do_apriori(data, min_supp, metric, threshold):
         pass
 
+    @staticmethod
+    def find_assoc_rules(frequent_itemsets, metric, threshold):
+        pass
+
 
 @dataclass
 class Result:
-    exec_t: int
+    exec_t: float
     dataframe: pd.DataFrame
 
 
