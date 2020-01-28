@@ -6,6 +6,8 @@ import apriori
 class Window(QtWidgets.QOpenGLWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        btn = QPushButton('Button', self)
+        btn.resize(btn.sizeHint())
         self.Painter = QtGui.QPainter(self)
 
     def paintEvent(self, e):
