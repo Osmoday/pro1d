@@ -16,15 +16,15 @@ class _FpgrowthMlxtend:
         frequent_itemsets = fpgrowth(data, min_support=min_supp, use_colnames=True)
         t2 = time.time()
         frequent_itemsets['length'] = frequent_itemsets['itemsets'].apply(lambda x: len(x))
-        return Result(t2-t1, frequent_itemsets)
+        return Result(t2 - t1, frequent_itemsets)
 
     @staticmethod
     def find_assoc_rules(frequent_itemsets, metric, threshold):
         t1 = time.time()
         assoc = association_rules(frequent_itemsets, metric=metric,
-                                            min_threshold=threshold)
+                                  min_threshold=threshold)
         t2 = time.time()
-        return Result(t2-t1, assoc)
+        return Result(t2 - t1, assoc)
 
 
 class _FpgrowthInterpreted:

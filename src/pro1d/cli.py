@@ -10,6 +10,15 @@ with open("../data/retail.dat.txt", "r") as f:
     data = f.readlines()
 data = [line.strip().split(" ") for line in data]
 
+product = input("Choose product (-1 for no choice)")
+data2 = list()
+
+if product != "-1":
+    for line in data:
+        if product in line:
+            data2.append(line)
+    data = data2
+
 te = TransactionEncoder()
 te_ary = te.fit(data).transform(data)
 df = pd.DataFrame(te_ary, columns=te.columns_)
@@ -27,9 +36,10 @@ apriori_time_start = time.time()
 frequent_itemsets = apriori(df, min_support=min_support_apriori, use_colnames=True)
 apriori_time = time.time() - apriori_time_start
 frequent_itemsets['length'] = frequent_itemsets['itemsets'].apply(lambda x: len(x))
-# frequent_itemsets = frequent_itemsets.drop()
+frequent_itemsets['support'] = frequent_itemsets['support'].apply(lambda x: float(x))
 
 print("Apriori frequent itemsets")
+frequent_itemsets.sort_values(by=['length', 'support'], inplace=True)
 print(frequent_itemsets.to_string())
 print("Apriori execution time: ", apriori_time, " seconds")
 print("")
@@ -61,6 +71,7 @@ print("FP-growth frequent itemsets: association rules found:")
 print(association_rules_fpg.to_string())
 print("FP-growth association rule mining execution time: ", association_fpg_time, " seconds")
 print("")
+
 
 
 inp = input("Save results as .csv files? [Y/N]")
