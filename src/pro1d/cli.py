@@ -36,11 +36,11 @@ apriori_time_start = time.time()
 frequent_itemsets = apriori(df, min_support=min_support_apriori, use_colnames=True)
 apriori_time = time.time() - apriori_time_start
 frequent_itemsets['length'] = frequent_itemsets['itemsets'].apply(lambda x: len(x))
-frequent_itemsets['support'] = frequent_itemsets['support'].apply(lambda x: float(x))
 
 print("Apriori frequent itemsets")
 frequent_itemsets.sort_values(by=['length', 'support'], inplace=True)
 print(frequent_itemsets.to_string())
+print("No. of rows: ", len(frequent_itemsets))
 print("Apriori execution time: ", apriori_time, " seconds")
 print("")
 
@@ -48,8 +48,11 @@ association_apriori_time_start = time.time()
 association_rules_apriori = association_rules(frequent_itemsets, metric=metric_assoc, min_threshold=min_threshold_assoc)
 association_apriori_time = time.time() - association_apriori_time_start
 
+association_rules_apriori.sort_values(by=[metric_assoc], inplace=True, ascending=False)
+
 print("Apriori frequent itemsets: association rules found:")
 print(association_rules_apriori.to_string())
+print("No. of rows: ", len(association_rules_apriori))
 print("Apriori association rule mining execution time: ", association_apriori_time, " seconds")
 print("")
 
@@ -57,9 +60,11 @@ fpg_time_start = time.time()
 fpg = fpgrowth(df, min_support=min_support_fpg, use_colnames=True)
 fpg_time = time.time() - fpg_time_start
 fpg['length'] = fpg['itemsets'].apply(lambda x: len(x))
+fpg.sort_values(by=['length', 'support'], inplace=True)
 
 print("FP-growth")
 print(fpg.to_string())
+print("No. of rows: ", len(fpg))
 print("FP-growth execution time:", fpg_time, " seconds")
 print("")
 
@@ -67,11 +72,13 @@ association_fpg_time_start = time.time()
 association_rules_fpg = association_rules(fpg, metric=metric_assoc, min_threshold=min_threshold_assoc)
 association_fpg_time = time.time() - association_fpg_time_start
 
+association_rules_fpg.sort_values(by=[metric_assoc], inplace=True, ascending=False)
+
 print("FP-growth frequent itemsets: association rules found:")
 print(association_rules_fpg.to_string())
+print("No. of rows: ", len(association_rules_fpg))
 print("FP-growth association rule mining execution time: ", association_fpg_time, " seconds")
 print("")
-
 
 
 inp = input("Save results as .csv files? [Y/N]")
